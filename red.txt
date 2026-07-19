@@ -1,0 +1,51 @@
+Чтобы подключить внешние HTML-файлы (header.html, nav.html, footer.html) в главный файл index.html с помощью JavaScript, лучше всего использовать функцию fetch().
+
+Ниже представлена готовая и простая структура файлов.
+
+1. Главный файл (index.html)
+
+Создайте пустые контейнеры (теги) с уникальными id, куда JavaScript вставит содержимое.
+
+<!DOCTYPE html> <html lang="ru"> <head> <meta charset="UTF-8"> <title>Главная страница</title> </head> <body> <!-- Контейнеры для динамических блоков --> <div id="header-container"></div> <div id="nav-container"></div> <main> <h1>Основной контент страницы</h1> </main> <div id="footer-container"></div> <!-- Подключение скрипта --> <script src="script.js"></script> </body> </html> 
+
+2. Второстепенные файлы
+
+Создайте эти файлы в той же папке, что и index.html. Пишите в них только целевой HTML-код (без тегов <html>, <head>, <body>).
+
+header.html
+
+<header> <h1>Хаадер</h1> </header> 
+
+nav.html
+
+<nav> <ul> <li><a href="https://google.com" target="_blank">Google</a></li> <li><a href="https://github.com" target="_blank">GitHub</a></li> <li><a href="https://yandex.ru" target="_blank">Yandex</a></li> </ul> </nav> 
+
+footer.html
+
+<footer> <h2>Футер</h2> </footer 
+
+3. Скрипт автоматизации (script.js)
+
+Этот код загружает файлы в фоновом режиме и вставляет их в соответствующие блоки.
+
+// Функция для загрузки и вставки HTML-кода function includeHTML(targetId, filePath) { fetch(filePath) .then(response => { if (!response.ok) { throw new Error(`Ошибка загрузки: ${filePath}`); } return response.text(); }) .then(data => { document.getElementById(targetId).innerHTML = data; }) .catch(error => console.error(error)); } // Вызываем функцию для каждого файла после загрузки DOM document.addEventListener("DOMContentLoaded", () => { includeHTML("header-container", "header.html"); includeHTML("nav-container", "nav.html"); includeHTML("footer-container", "footer.html"); }); 
+
+⚠️ Важное примечание по запуску
+
+Современные браузеры блокируют технологию fetch (запросы CORS), если вы просто дважды кликните по файлу index.html на компьютере.
+
+Чтобы код работал:
+
+Запустите локальный сервер.
+
+Если вы используете VS Code, установите расширение Live Server и нажмите кнопку Go Live.
+
+Если у вас возникли проблемы с отображением, скажите:
+
+Используете ли вы локальный сервер (например, Live Server)?
+
+Появляются ли ошибки в консоли браузера (F12 -> Console)?
+
+Нужно ли добавить базовые CSS-стили для оформления шапки и подвала?
+
+
